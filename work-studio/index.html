@@ -201,8 +201,19 @@
         <span>Partner with us</span>
       </div>
     </main>
+    <script src="https://unpkg.com/lenis@1.3.8/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script>
+      const lenis = new Lenis({
+        smooth: true,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
       const tl = gsap.timeline();
 
       tl.from("#page1 h1", {
@@ -245,6 +256,17 @@
             stagger: 0.2,
           },
           "-=0.5"
+        )
+        .from(
+          ".image-container ul",
+          {
+            y: -20,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power1.inOut",
+            stagger: 0.2,
+          },
+          "<"
         );
     </script>
   </body>
