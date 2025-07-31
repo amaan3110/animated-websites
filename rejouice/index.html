@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>REJOUICE</title>
+    <style>
+      @font-face {
+        font-family: suisse;
+        src: url(./SuisseIntl-Regular.woff2);
+        font-display: swap;
+      }
+      @font-face {
+        font-family: chillax;
+        src: url(./Chillax-Variable.ttf);
+        font-display: swap;
+      }
+      @font-face {
+        font-family: suisse-light;
+        src: url(./SuisseIntl-Light.woff2);
+        font-display: swap;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .loader {
+        width: 100%;
+        height: 100vh;
+        place-content: center;
+        text-align: center;
+        font-family: suisse;
+        font-size: 20px;
+        font-weight: 600;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+      }
+
+      #page1 {
+        width: 100%;
+        background-color: black;
+        color: #fff;
+      }
+
+      nav {
+        width: 100%;
+        padding: 32px 32px 16px 32px;
+        display: flex;
+        justify-content: space-between;
+        font-family: suisse;
+      }
+
+      #page1 h1 {
+        display: flex;
+        justify-content: center;
+        letter-spacing: -20px;
+        font-family: chillax;
+        font-size: 28vw;
+        line-height: 1;
+        font-weight: 500;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      #page1 h1 span {
+        transform: translateY(-10%);
+      }
+
+      .page1-footer {
+        font-family: suisse;
+        margin-top: 18px;
+        padding: 32px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        font-size: 14px;
+      }
+
+      #page1 video {
+        width: 100%;
+      }
+
+      #page2 {
+        width: 100%;
+        background-color: black;
+        color: #fff;
+        padding: 48px 32px;
+      }
+
+      #page2 div {
+        overflow: hidden;
+      }
+
+      #page2 div:first-child {
+        text-align: right;
+      }
+
+      #page2 h1 {
+        font-size: 54px;
+        line-height: 54px;
+        font-family: suisse-light;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="loader">
+        <span>Tomorrow's </span><span>Brand,</span> <span>Today &trade;</span>
+      </div>
+      <div id="page1">
+        <nav>
+          <span>The Growth Accelator</span>
+          <span>Lets Talk</span>
+        </nav>
+        <h1>
+          <span>r</span>
+          <span>e</span>
+          <span>j</span>
+          <span>o</span>
+          <span>u</span>
+          <span>i</span>
+          <span>c</span>
+          <span>e</span>
+        </h1>
+
+        <div class="page1-footer">
+          <span
+            >Strategy, Design, <br />
+            Performance.</span
+          >
+          <span
+            >Global Creative <br />
+            & Technology Agency.</span
+          >
+        </div>
+        <video autoplay muted loop src="./video1.mp4"></video>
+      </div>
+      <div id="page2">
+        <div><h1>We turn founders’ visions into remarkable</h1></div>
+        <div><h1>brands by combining strategy, design, and</h1></div>
+        <div><h1>performance marketing, all under one roof. Explore</h1></div>
+        <div><h1>our services.</h1></div>
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/lenis@1.3.8/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+      const lenis = new Lenis({
+        smooth: true,
+        lerp: 0.1,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      const tl = gsap.timeline();
+
+      tl.from(".loader span", {
+        opacity: 0,
+        duration: 1,
+        ease: "power1.inOut",
+        stagger: 0.1,
+      })
+        .from(
+          "#page1",
+          {
+            y: "-100%",
+            duration: 0.9,
+            ease: "power1.inOut",
+
+            onComplete: () => {
+              gsap.set(".loader", { display: "none" });
+            },
+          },
+          "-=0.5"
+        )
+        .from(
+          "#page1 h1 span",
+          {
+            y: "-110%",
+            duration: 1.1,
+            ease: "power1.inOut",
+            stagger: 0.05,
+          },
+          "-=0.5"
+        )
+        .from(
+          ".page1-footer",
+          {
+            opacity: 0,
+            ease: "power1.inOut",
+            duration: 0.5,
+          },
+          "-=0.6"
+        )
+        .from("#page1 video", {
+          opacity: 0,
+          duration: 1,
+          ease: "power1.inOut",
+        });
+
+      gsap.from("#page2 h1", {
+        y: "100%",
+        duration: 0.5,
+        ease: "power1.inOut",
+        stagger: 0.02,
+        scrollTrigger: {
+          trigger: "#page2",
+          start: "top center",
+          toggleActions: "play none none reset",
+        },
+      });
+    </script>
+  </body>
+</html>
