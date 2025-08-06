@@ -138,6 +138,17 @@
         background-color: #f5e31a;
         z-index: 9;
       }
+
+      @media screen and (max-width: 768px) {
+        #page1 h1,
+        #page2 h1 {
+          font-size: 32px;
+        }
+
+        .image-grid {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
     </style>
   </head>
   <body>
@@ -243,6 +254,9 @@
             opacity: 0,
             duration: 0.5,
             ease: "power2.inOut",
+            onComplete: () => {
+              document.querySelector(".loader").style.display = "none";
+            },
           },
           "-=0.5"
         )

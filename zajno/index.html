@@ -46,6 +46,7 @@
         width: 100%;
         background-color: #ebebeb;
         padding: 80px 3%;
+        padding-bottom: 0;
       }
 
       .title {
@@ -64,15 +65,11 @@
         letter-spacing: -2px;
       }
 
-      #page2 {
-        width: 100%;
-        background-color: #ebebeb;
-      }
-
-      #page2 video {
+      #page1 video {
         width: 100%;
         height: auto;
         object-fit: cover;
+        margin-top: 48px;
       }
 
       #page3 {
@@ -132,6 +129,26 @@
         margin: 0 auto;
         z-index: 9;
       }
+
+      @media screen and (max-width: 768px) {
+        #page1 {
+          height: 100vh;
+        }
+        .work {
+          width: 100%;
+          margin-left: 0;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .work img {
+          width: 100%;
+        }
+
+        .large-number {
+          height: 17vh;
+        }
+      }
     </style>
   </head>
   <body>
@@ -153,8 +170,6 @@
             <span>0</span>
           </h1>
         </div>
-      </div>
-      <div id="page2">
         <video autoplay muted loop src="./video1.mp4"></video>
       </div>
       <div id="page3">
@@ -238,7 +253,7 @@
         },
 
         onComplete: () => {
-          gsap.set(numberEl, { opacity: 0 });
+          numberEl.textContent = "";
         },
       })
         .to(".loader", {
@@ -263,6 +278,9 @@
           duration: 1,
           transformOrigin: "top",
           ease: "power3.inOut",
+          onComplete: () => {
+            gsap.set(numberEl, { display: "none" });
+          },
         },
         "-=0.5"
       )
@@ -289,15 +307,20 @@
           "<"
         )
         .from(
-          "#page2 video",
+          "#page1 video",
           {
             opacity: 0,
             y: 50,
             duration: 0.5,
             ease: "power3.inOut",
           },
-          "-=0.9"
-        );
+          "-=0.5"
+        )
+        .to("#page1", {
+          height: "auto",
+          duration: 1,
+          ease: "power3.inOut",
+        });
     </script>
   </body>
 </html>
