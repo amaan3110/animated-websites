@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jam Area</title>
+    <style>
+      @font-face {
+        font-family: fk;
+        src: url("./FKScreamer.woff2");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: nm;
+        src: url("./NeueMontreal-Medium.woff2");
+        font-display: swap;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      *::-webkit-scrollbar {
+        display: none;
+      }
+
+      main {
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      #page1 {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .image_section {
+        width: 100%;
+        height: 65%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 40px 0;
+      }
+
+      .image_section img {
+        flex-shrink: 0;
+        width: 120px;
+        height: 150px;
+        object-fit: cover;
+        display: inline-block;
+        filter: grayscale(100%);
+        transition: filter 0.5s ease;
+        position: absolute;
+      }
+
+      .image_section img:hover {
+        filter: grayscale(0%);
+      }
+
+      .image_section img:nth-child(odd) {
+        align-self: flex-start;
+      }
+
+      .image_section img:nth-child(even) {
+        align-self: flex-end;
+      }
+
+      .image_section img:nth-child(1) {
+        left: 5%;
+      }
+
+      .image_section img:nth-child(2) {
+        left: 17%;
+      }
+
+      .image_section img:nth-child(3) {
+        left: 30%;
+      }
+
+      .image_section img:nth-child(4) {
+        left: 45%;
+      }
+
+      .image_section img:nth-child(5) {
+        left: 55%;
+      }
+
+      .image_section img:nth-child(6) {
+        left: 70%;
+      }
+
+      .image_section img:nth-child(7) {
+        left: 85%;
+      }
+
+      .text_section {
+        width: 100%;
+        height: 35%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 0 3%;
+        overflow: hidden;
+      }
+
+      .text_section h1 {
+        font-family: fk;
+        font-size: 200px;
+        font-weight: 500;
+        z-index: 999;
+        color: #fff;
+      }
+
+      .text_section h1:nth-child(1) {
+        transform: translateX(140px);
+      }
+
+      .text_section h1:nth-child(3) {
+        transform: translateX(-140px);
+      }
+
+      .text_section span {
+        display: inline-block;
+        max-width: 250px;
+        text-align: center;
+        font-family: nm;
+      }
+
+      @media screen and (max-width: 1024px) {
+        .image_section img {
+          /* position: relative; */
+          align-self: center !important;
+          height: 50%;
+          width: 100%;
+          left: calc(var(--i) * 100%) !important;
+        }
+
+        .text_section h1 {
+          font-size: 60px;
+        }
+
+        .text_section h1:nth-child(1) {
+          transform: translateX(80px);
+        }
+
+        .text_section h1:nth-child(3) {
+          transform: translateX(-80px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="page1">
+        <div class="image_section">
+          <img style="--i: 0" src="./image1.jpg" alt="img-1" />
+          <img style="--i: 1" src="./image2.jpg" alt="img-2" />
+          <img style="--i: 2" src="./image3.jpg" alt="img-3" />
+          <img style="--i: 3" src="./image4.jpg" alt="img-4" />
+          <img style="--i: 4" src="./image5.jpg" alt="img-5" />
+          <img style="--i: 5" src="./image7.jpg" alt="img-7" />
+          <img style="--i: 6" src="./image6.jpg" alt="img-6" />
+        </div>
+        <div class="text_section">
+          <h1>JAM</h1>
+          <span>
+            ©JAMAREA COMMUNICATION AGENCY BRANDING AND DIGITAL MARKETING
+          </span>
+          <h1>AREA</h1>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/Flip.min.js"></script>
+    <script>
+      gsap.registerPlugin(Flip);
+
+      const tl = gsap.timeline();
+
+      const randomNumber = Math.floor(Math.random() * 7) + 1;
+
+      const imageNumber = window.innerWidth < 1024 ? 1 : randomNumber;
+
+      tl.from(`.image_section img:nth-child(${imageNumber})`, {
+        scale: 1.2,
+        duration: 0.8,
+        ease: "power1.inOut",
+      })
+        .from(".text_section h1", {
+          y: "100%",
+          duration: 1,
+          ease: "power1.inOut",
+          stagger: 0.1,
+        })
+        .from(`.image_section img:nth-child(${imageNumber})`, {
+          width: "100%",
+          height: "100%",
+          zIndex: 9,
+          top: 0,
+          left: 0,
+          duration: 1,
+          ease: "expo.inOut",
+        })
+        .to(
+          ".text_section h1",
+          {
+            color: "#111",
+            duration: 1,
+            ease: "power1.inOut",
+            stagger: 0.1,
+          },
+          "-=0.7"
+        )
+        .to(
+          ".text_section h1",
+          {
+            transform: "translateX(0)",
+            duration: 1,
+            ease: "power2.inOut",
+          },
+          "<"
+        )
+        .from(
+          ".text_section span",
+          {
+            scale: 0.1,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          "-=0.8"
+        );
+    </script>
+  </body>
+</html>
