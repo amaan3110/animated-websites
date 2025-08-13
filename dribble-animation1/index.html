@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dribble Animation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oranienbaum&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Oranienbaum", serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      main {
+        max-width: 1600px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      #page1 {
+        width: 100%;
+        height: 100vh;
+        padding: 48px;
+      }
+
+      .image-container {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .image {
+        width: 80%;
+        height: 100%;
+        grid-column: 1;
+        grid-row: 1;
+        clip-path: inset(0 100% 0 0);
+        opacity: 0;
+        position: relative;
+        margin: 0 auto;
+      }
+
+      .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .text-container {
+        width: 50%;
+        position: absolute;
+        left: 5%;
+        top: 20%;
+        z-index: 99;
+        overflow: hidden;
+        opacity: 0;
+        color: black;
+      }
+
+      .text-container h2 {
+        font-size: 64px;
+        margin-bottom: 42px;
+      }
+
+      .text-container p {
+        font-size: 20px;
+        line-height: 1.2;
+      }
+
+      .indicators {
+        width: 20px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .indicator {
+        width: 1.5px;
+        height: 25%;
+        background-color: #e6e6e6;
+      }
+
+      .indicator span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transform: scaleY(0);
+        background-color: black;
+      }
+
+      #page2 {
+        width: 100%;
+        /* height: 100vh; */
+        padding: 48px;
+        position: relative;
+      }
+
+      .page2-img {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: -50px;
+      }
+
+      .page2-img:nth-child(1) {
+        margin-top: 0;
+      }
+
+      .page2-img:nth-child(even) {
+        text-align: right;
+      }
+
+      .page2-img img {
+        width: 300px;
+        border-radius: 16px;
+      }
+
+      .footer {
+        background: #ffffff; /* Soft white footer */
+        color: #333; /* Dark gray text for readability */
+        padding: 2rem 1rem;
+        text-align: center;
+        border-top: 1px solid rgba(0, 0, 0, 0.05); /* Subtle separator */
+      }
+
+      .footer-container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .footer-logo {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .footer-nav {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-nav a {
+        color: #aaa;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-nav a:hover {
+        color: #fff;
+      }
+
+      .footer-copy {
+        font-size: 0.85rem;
+        color: #777;
+      }
+
+      @media screen and (max-width: 1024px) {
+        #page1 {
+          padding: 24px;
+        }
+
+        .image {
+          width: 100%;
+        }
+
+        .text-container {
+          width: 90%;
+        }
+
+        .text-container h2 {
+          font-size: 48px;
+        }
+
+        .text-container p {
+          font-size: 18px;
+        }
+
+        .indicators {
+          flex-direction: row;
+          width: 100%;
+          height: 20px;
+          top: 95%;
+        }
+
+        .indicator {
+          width: 25%;
+          height: 1.5px;
+        }
+
+        .indicator span {
+          transform: scaleX(0);
+        }
+
+        #page2 {
+          margin-top: 48px;
+        }
+
+        .page2-img {
+          width: 100%;
+          margin-top: 24px;
+        }
+      }
+
+      @media screen and (max-width: 576px) {
+        .page2-img img {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="page1">
+        <div class="image-container">
+          <div class="image">
+            <img
+              src="https://images.unsplash.com/photo-1754079132962-2f6c62f14d33?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D"
+              alt="image2"
+            />
+
+            <div class="text-container">
+              <h2>Image1</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
+                cupiditate expedita tenetur maxime ducimus? Eveniet nulla odio
+                ullam blanditiis necessitatibus dignissimos placeat reiciendis
+                est, cum nam. Quaerat cupiditate illo facere quas maiores.
+              </p>
+            </div>
+          </div>
+
+          <div class="image">
+            <img
+              src="https://images.unsplash.com/photo-1754079132860-5b37dab49daa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzNnx8fGVufDB8fHx8fA%3D%3D"
+              alt="image3"
+            />
+            <div class="text-container">
+              <h2>Image2</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
+                cupiditate expedita tenetur maxime ducimus? Eveniet nulla odio
+                ullam blanditiis necessitatibus dignissimos placeat reiciendis
+                est, cum nam. Quaerat cupiditate illo facere quas maiores.
+              </p>
+            </div>
+          </div>
+
+          <div class="image">
+            <img
+              src="https://plus.unsplash.com/premium_photo-1754781493808-e575e4474ee9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzM3x8fGVufDB8fHx8fA%3D%3D"
+              alt="image1"
+            />
+            <div class="text-container">
+              <h2>Image3</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
+                cupiditate expedita tenetur maxime ducimus? Eveniet nulla odio
+                ullam blanditiis necessitatibus dignissimos placeat reiciendis
+                est, cum nam. Quaerat cupiditate illo facere quas maiores.
+              </p>
+            </div>
+          </div>
+
+          <div class="indicators">
+            <div class="indicator">
+              <span></span>
+            </div>
+            <div class="indicator">
+              <span></span>
+            </div>
+            <div class="indicator">
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="page2">
+        <div class="page2-img">
+          <img
+            src="https://images.unsplash.com/photo-1754756736142-b5251258b167?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzMHx8fGVufDB8fHx8fA%3D%3D"
+            alt="page2-image1"
+          />
+        </div>
+        <div class="page2-img">
+          <img
+            src="https://images.unsplash.com/photo-1754763679284-6c60b9a0a4ea?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzNXx8fGVufDB8fHx8fA%3D%3D"
+            alt="page2-image2"
+          />
+        </div>
+        <div class="page2-img">
+          <img
+            src="https://images.unsplash.com/photo-1754799399805-da0178249638?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0M3x8fGVufDB8fHx8fA%3D%3D"
+            alt="page2-image3"
+          />
+        </div>
+        <div class="page2-img">
+          <img
+            src="https://images.unsplash.com/photo-1754842382582-b643e9af5a27?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0Mnx8fGVufDB8fHx8fA%3D%3D"
+            alt="page2-image4"
+          />
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-container">
+          <h2 class="footer-logo">YourBrand</h2>
+          <nav class="footer-nav">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+          </nav>
+          <p class="footer-copy">© 2025 YourBrand. All rights reserved.</p>
+        </div>
+      </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      const images = document.querySelectorAll(".image");
+      const texts = document.querySelectorAll(".text-container");
+      const indicators = document.querySelectorAll(".indicator span");
+      const page2Images = document.querySelectorAll(".page2-img img");
+
+      const desktopConfig = {
+        transformation: "scaleY",
+        from: "top",
+        to: "bottom",
+      };
+
+      const mobileConfig = {
+        transformation: "scaleX",
+        from: "left",
+        to: "right",
+      };
+
+      const config = window.innerWidth <= 1024 ? mobileConfig : desktopConfig;
+
+      const tl = gsap.timeline({ repeat: -1 }); // repeat forever
+
+      images.forEach((img, idx) => {
+        tl.to(
+          img,
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            opacity: 1,
+            duration: 1,
+            ease: "power1.inOut",
+            transformOrigin: "left center",
+          },
+          "-=0.5"
+        )
+          .to(
+            indicators[idx],
+            {
+              [config.transformation]: 1,
+              ease: "power1.inOut",
+              duration: 1,
+              transformOrigin: config.from,
+            },
+            "<"
+          )
+          .to(
+            texts[idx],
+            {
+              opacity: 1,
+              ease: "power1.inOut",
+              duration: 1,
+            },
+            "-=0.2"
+          )
+          .to(texts[idx], {
+            opacity: 0,
+            ease: "power1.inOut",
+            duration: 1,
+            delay: 2,
+          })
+          .to(
+            indicators[idx],
+            {
+              [config.transformation]: 0,
+              ease: "power1.inOut",
+              duration: 1,
+              transformOrigin: config.to,
+            },
+            "<"
+          )
+          .to(img, {
+            clipPath: "inset(0% 0% 0% 100%)",
+            opacity: 0,
+            duration: 1,
+            ease: "power1.inOut",
+          });
+      });
+
+      page2Images.forEach((img, idx) => {
+        gsap.from(img, {
+          rotate: idx % 2 === 0 ? 7 : -7,
+          ease: "power1.inOut",
+          duration: 1,
+          scrollTrigger: {
+            trigger: img,
+            start: "top 50%",
+            end: "bottom 90%",
+            scrub: 1,
+          },
+        });
+      });
+
+      const footerTl = gsap.timeline({
+        defaults: { ease: "power2.out" },
+        scrollTrigger: {
+          trigger: ".footer",
+          start: "top 80%",
+        },
+      });
+
+      footerTl
+        .from(".footer", {
+          y: 100,
+          opacity: 0,
+          duration: 1.2,
+        })
+        .from(
+          ".footer-logo",
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+          },
+          "-=0.6"
+        )
+        .from(
+          ".footer-nav a",
+          {
+            y: 20,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 0.5,
+          },
+          "-=0.4"
+        )
+        .from(
+          ".footer-copy",
+          {
+            opacity: 0,
+            duration: 0.8,
+          },
+          "-=0.4"
+        );
+    </script>
+  </body>
+</html>
