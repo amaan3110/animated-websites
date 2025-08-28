@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>K72.ca</title>
+    <style>
+      @font-face {
+        font-family: lausanne;
+        src: url("./Lausanne-300.woff2") format("woff2");
+        font-display: swap;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        font-family: lausanne, sans-serif;
+      }
+
+      :root {
+        --text-video-size: 200px;
+        --marquee-video-size: 150px;
+      }
+
+      main {
+        background: #f5f5f5;
+        overflow: hidden;
+      }
+
+      .loader {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        overflow: hidden;
+        z-index: 8;
+      }
+
+      .loader_strip {
+        height: 0;
+        background-image: url("./loader-image.jpg");
+        background-size: 600% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .loader_strip:nth-child(1) {
+        background-position: 0% 0;
+      }
+      .loader_strip:nth-child(2) {
+        background-position: 20% 0;
+      }
+      .loader_strip:nth-child(3) {
+        background-position: 40% 0;
+      }
+      .loader_strip:nth-child(4) {
+        background-position: 60% 0;
+      }
+      .loader_strip:nth-child(5) {
+        background-position: 80% 0;
+      }
+      .loader_strip:nth-child(6) {
+        background-position: 100% 0;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+      }
+
+      nav .logo svg {
+        color: #fff;
+      }
+
+      .menu-btn {
+        width: 200px;
+        height: 50px;
+        background-color: #111;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .menu-btn::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: #d3fd50;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .menu-btn:hover::after {
+        top: 0;
+      }
+
+      .nav_link_container {
+        position: fixed;
+        top: -100%;
+        left: 0;
+        background-color: #111;
+        width: 100%;
+        height: 100vh;
+        transition: all 0.3s ease;
+        place-content: center;
+      }
+
+      .nav_link_container .link {
+        text-align: center;
+        border-top: 1px solid #ffff;
+        padding: 0.25rem;
+        position: relative;
+      }
+
+      .link_marquee {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #d3fd50;
+        opacity: 0;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        place-content: center;
+        height: 0;
+      }
+
+      .link:hover .link_marquee {
+        opacity: 1;
+        cursor: pointer;
+        height: 100%;
+      }
+
+      .marquee_text {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: menu-scroll 5s linear infinite;
+      }
+
+      @keyframes menu-scroll {
+        from {
+          transform: translateX(0%);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .marquee_text h2 {
+        font-size: 6vw;
+        text-transform: uppercase;
+        margin: 0;
+      }
+
+      .marquee_text .marquee_img {
+        width: var(--marquee-video-size);
+        height: calc(var(--marquee-video-size) / 2);
+        border-radius: 100px;
+      }
+
+      .nav_link_container .link:last-child {
+        border-bottom: 1px solid #ffff;
+      }
+
+      .nav_link_container .link a {
+        font-size: 7vw;
+        font-weight: lighter;
+        color: #fff;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      .nav_link_container.show {
+        top: 0;
+      }
+
+      .close-menu {
+        --color: #fff;
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        cursor: pointer;
+      }
+
+      .close-menu:hover {
+        --color: #d3fd50;
+      }
+
+      .close-menu::before,
+      .close-menu::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 2px;
+        background-color: var(--color);
+        transform-origin: center;
+      }
+
+      .close-menu::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      .close-menu::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+
+      section {
+        width: 100%;
+        min-height: 100vh;
+        background: #222;
+        position: relative;
+      }
+
+      .text_container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .text_container:not(:first-child) {
+        margin-top: -1rem;
+      }
+
+      .text_container h1 {
+        font-size: 9.5vw;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 300;
+        position: relative;
+        z-index: 9;
+      }
+
+      .text_container .text_video {
+        width: var(--text-video-size);
+        height: calc(var(--text-video-size) / 2);
+        border-radius: 100px;
+        overflow: hidden;
+        z-index: 9;
+        opacity: 0;
+      }
+
+      .text_container .text_video video {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .video_container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+      }
+
+      .video_container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .para_container {
+        width: 100%;
+        height: 120px;
+        position: relative;
+        z-index: 9;
+        display: flex;
+        justify-content: end;
+        color: #fff;
+        opacity: 0;
+      }
+
+      .para_container p {
+        max-width: 300px;
+        line-height: 1;
+      }
+
+      .btn_container {
+        position: relative;
+        width: 100%;
+        z-index: 9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        opacity: 0;
+      }
+
+      .btn_container a {
+        text-decoration: none;
+        font-size: 6.5vw;
+        border: 3px solid #fff;
+        border-radius: 100px;
+        padding: 0 2rem;
+        color: #fff;
+        text-transform: uppercase;
+        transition: 0.3s ease;
+      }
+
+      .btn_container a:hover {
+        color: #d3fd50;
+        border-color: #d3fd50;
+      }
+
+      @media screen and (max-width: 770px) {
+        :root {
+          --text-video-size: 120px;
+          --marquee-video-size: 70px;
+        }
+
+        .loader {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .loader_strip:nth-child(4),
+        .loader_strip:nth-child(5),
+        .loader_strip:nth-child(6) {
+          display: none;
+        }
+
+        .loader_strip {
+          background-size: 300% 100%;
+        }
+
+        .loader_strip:nth-child(1) {
+          background-position: 0% 0;
+        }
+        .loader_strip:nth-child(2) {
+          background-position: 50% 0;
+        }
+        .loader_strip:nth-child(3) {
+          background-position: 100% 0;
+        }
+
+        section {
+          place-content: center;
+        }
+
+        .text_container:not(:first-child) {
+          margin-top: 0rem;
+        }
+
+        .para_container {
+          margin-block: 18px;
+        }
+
+        .btn_container a {
+          font-size: 5.5vw;
+        }
+
+        .nav_link_container .link a {
+          font-size: 10vw;
+        }
+
+        .marquee_text h2 {
+          font-size: 7vw;
+        }
+
+        .menu-btn {
+          width: 150px;
+        }
+
+        .close-menu {
+          width: 40px;
+          height: 40px;
+          top: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="loader">
+        <div class="loader_strip"></div>
+        <div class="loader_strip"></div>
+        <div class="loader_strip"></div>
+        <div class="loader_strip"></div>
+        <div class="loader_strip"></div>
+        <div class="loader_strip"></div>
+      </div>
+      <nav>
+        <div class="logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="103"
+            height="44"
+            viewBox="0 0 103 44"
+          >
+            <path
+              fill="white"
+              fill-rule="evenodd"
+              d="M35.1441047,8.4486911 L58.6905011,8.4486911 L58.6905011,-1.3094819e-14 L35.1441047,-1.3094819e-14 L35.1441047,8.4486911 Z M20.0019577,0.000230366492 L8.83414254,25.3433089 L18.4876971,25.3433089 L29.5733875,0.000230366492 L20.0019577,0.000230366492 Z M72.5255345,0.000691099476 L72.5255345,8.44846073 L94.3991559,8.44846073 L94.3991559,16.8932356 L72.5275991,16.8932356 L72.5275991,19.5237906 L72.5255345,19.5237906 L72.5255345,43.9274346 L102.80937,43.9274346 L102.80937,35.4798953 L80.9357483,35.4798953 L80.9357483,25.3437696 L94.3996147,25.3428482 L94.3996147,16.8953089 L102.80937,16.8953089 L102.80937,0.000691099476 L72.5255345,0.000691099476 Z M-1.30398043e-14,43.9278953 L8.78642762,43.9278953 L8.78642762,0.0057591623 L-1.30398043e-14,0.0057591623 L-1.30398043e-14,43.9278953 Z M58.6849955,8.4486911 L43.1186904,43.9274346 L52.3166592,43.9274346 L67.9877996,8.4486911 L58.6849955,8.4486911 Z M18.4688864,25.3437696 L26.7045278,43.9278953 L36.2761871,43.9278953 L28.1676325,25.3375497 L18.4688864,25.3437696 Z"
+            ></path>
+          </svg>
+        </div>
+        <div class="menu-btn"></div>
+
+        <div class="nav_link_container">
+          <div class="close-menu"></div>
+          <div class="link">
+            <div class="link_marquee">
+              <div class="marquee_text">
+                <h2>projects</h2>
+                <h2>projects</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img1.jpg"
+                  loading="lazy"
+                />
+                <h2>projects</h2>
+                <h2>projects</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img1.jpg"
+                  loading="lazy"
+                />
+                <h2>projects</h2>
+                <h2>projects</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img1.jpg"
+                  loading="lazy"
+                />
+                <h2>projects</h2>
+                <h2>projects</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img1.jpg"
+                  loading="lazy"
+                />
+                <h2>projects</h2>
+                <h2>projects</h2>
+              </div>
+            </div>
+            <a href="#">projects</a>
+          </div>
+          <div class="link">
+            <div class="link_marquee">
+              <div class="marquee_text">
+                <h2>agence</h2>
+                <h2>agence</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img2.jpg"
+                  loading="lazy"
+                />
+                <h2>agence</h2>
+                <h2>agence</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img2.jpg"
+                  loading="lazy"
+                />
+                <h2>agence</h2>
+                <h2>agence</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img2.jpg"
+                  loading="lazy"
+                />
+                <h2>agence</h2>
+                <h2>agence</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img2.jpg"
+                  loading="lazy"
+                />
+                <h2>agence</h2>
+                <h2>agence</h2>
+              </div>
+            </div>
+            <a href="#">agence</a>
+          </div>
+          <div class="link">
+            <div class="link_marquee">
+              <div class="marquee_text">
+                <h2>blogue</h2>
+                <h2>blogue</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img3.jpg"
+                  loading="lazy"
+                />
+                <h2>blogue</h2>
+                <h2>blogue</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img3.jpg"
+                  loading="lazy"
+                />
+                <h2>blogue</h2>
+                <h2>blogue</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img3.jpg"
+                  loading="lazy"
+                />
+                <h2>blogue</h2>
+                <h2>blogue</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img3.jpg"
+                  loading="lazy"
+                />
+                <h2>blogue</h2>
+                <h2>blogue</h2>
+              </div>
+            </div>
+            <a href="#">blogue</a>
+          </div>
+          <div class="link">
+            <div class="link_marquee">
+              <div class="marquee_text">
+                <h2>contact</h2>
+                <h2>contact</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img4.gif"
+                  loading="lazy"
+                />
+                <h2>contact</h2>
+                <h2>contact</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img4.gif"
+                  loading="lazy"
+                />
+                <h2>contact</h2>
+                <h2>contact</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img4.gif"
+                  loading="lazy"
+                />
+                <h2>contact</h2>
+                <h2>contact</h2>
+                <img
+                  class="marquee_img"
+                  src="./marquee-img4.gif"
+                  loading="lazy"
+                />
+                <h2>contact</h2>
+                <h2>contact</h2>
+              </div>
+            </div>
+            <a href="#">contact</a>
+          </div>
+        </div>
+      </nav>
+
+      <section>
+        <div class="text_container">
+          <h1>L'étincelle</h1>
+        </div>
+        <div class="text_container">
+          <h1>qui</h1>
+          <div class="text_video">
+            <video autoplay muted loop playsinline>
+              <source src="./hero-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <h1>génère</h1>
+        </div>
+        <div class="text_container">
+          <h1>la créativité</h1>
+        </div>
+        <div class="para_container">
+          <p>
+            &nbsp;&nbsp;&nbsp;K72 est une agence qui pense chaque action pour
+            nourrir la marque. Demain, dans 5 mois et dans 5 ans. On cherche la
+            friction qui crée l’étincelle pour générer de l’émotion. Pour
+            assurer une relation honnête, on est sans filtre, on dit ce qui doit
+            être dit, on fait ce qui doit être fait.
+          </p>
+        </div>
+        <div class="btn_container">
+          <a href="#">Projects</a>
+          <a href="#">Agence</a>
+        </div>
+        <div class="video_container">
+          <video autoplay muted loop playsinline>
+            <source src="./hero-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
+    </main>
+
+    <!-- GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- ScrollTrigger Plugin (optional, if you need scroll animations) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Other optional plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+
+    <script>
+      const tl = gsap.timeline();
+
+      tl.to(".loader_strip", {
+        height: "100%",
+        duration: 0.35,
+        ease: "power1.out",
+        stagger: {
+          each: 0.05,
+          from: "end",
+        },
+
+        onComplete: () => {
+          gsap.to(".loader", { opacity: 0, delay: 0.2 });
+        },
+      })
+        .from(
+          ".text_container h1",
+          {
+            y: "-110%",
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.1,
+            onComplete: () => {
+              gsap.to(".loader", { display: "none" });
+            },
+          },
+          "-=0.2"
+        )
+        .to(
+          [
+            ".video_container",
+            ".text_video",
+            ".para_container",
+            ".btn_container",
+          ],
+          {
+            opacity: 1,
+          },
+          "-=0.5"
+        );
+
+      const navLinkContainer = document.querySelector(".nav_link_container");
+      const menuBtn = document.querySelector(".menu-btn");
+      const closeBtn = document.querySelector(".close-menu");
+
+      menuBtn.addEventListener("click", () => {
+        navLinkContainer.classList.add("show");
+        gsap.from(".link", {
+          y: -50,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          stagger: 0.1,
+        });
+        gsap.from(closeBtn, {
+          x: "100%",
+          duration: 1,
+          ease: "power2.out",
+        });
+      });
+
+      closeBtn.addEventListener("click", () => {
+        navLinkContainer.classList.remove("show");
+      });
+    </script>
+  </body>
+</html>
