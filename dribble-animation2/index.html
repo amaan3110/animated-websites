@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Drink Parade</title>
+    <style>
+      @font-face {
+        font-family: quartist;
+        src: url("./Quartist.ttf");
+        font-display: swap;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "quartist", "Times New Roman", Times, serif;
+      }
+
+      main {
+        max-width: 1600px;
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .view1 {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+        color: #fff;
+        position: relative;
+      }
+
+      .view1 img {
+        max-width: 380px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .view1 img.frooti {
+        max-width: 260px;
+      }
+
+      .view1 img.sprite {
+        max-width: 300px;
+      }
+
+      .view1 img.thums-up {
+        max-width: 290px;
+      }
+
+      .view1 .drinks_name {
+        width: 100%;
+        text-align: center;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        z-index: 9;
+      }
+
+      .view1 .drinks_name h1 {
+        font-size: 8rem;
+        grid-column: 1;
+        grid-row: 1;
+        line-height: 1;
+        font-weight: 500;
+      }
+
+      .letter {
+        display: inline-block;
+      }
+
+      @media screen and (max-width: 768px) {
+        .view1 .drinks_name h1 {
+          font-size: 5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="view1">
+        <img class="coke" src="coke.png" alt="coke" />
+        <img class="frooti" src="frooti.png" alt="frooti" />
+        <img class="pepsi" src="pepsi.png" alt="pepsi" />
+        <img class="sprite" src="sprite.png" alt="sprite" />
+        <img class="thums-up" src="thums-up.png" alt="thums-up" />
+
+        <div class="drinks_name">
+          <h1>Coke</h1>
+          <h1>Frooti</h1>
+          <h1>Pepsi</h1>
+          <h1>Sprite</h1>
+          <h1>Thums Up</h1>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    <script>
+      window.addEventListener("load", () => {
+        const imgs = document.querySelectorAll(".view1 img");
+        imgs.forEach((img) => {
+          img.style.position = "absolute";
+          img.style.top = "50%";
+          img.style.left = "50%";
+          img.style.transform = "translate(-50%, -50%)";
+        });
+      });
+
+      const tl = gsap.timeline({ repeat: -1 });
+
+      const drinks = document.querySelectorAll(".view1 img");
+      const drinksName = document.querySelectorAll(".view1 .drinks_name h1");
+
+      drinksName.forEach((h1) => {
+        const letters = h1.textContent.split("");
+        h1.innerHTML = letters
+          .map((letter) => `<span class="letter">${letter}</span>`)
+          .join("");
+      });
+
+      drinks.forEach((drink, index) => {
+        const name = drinksName[index];
+        const letters = name.querySelectorAll(".letter");
+
+        tl.from(drink, {
+          x: 1000,
+          y: 50,
+          rotation: 30,
+          opacity: 0,
+          duration: 1,
+          ease: "power1.inOut",
+        })
+          .from(
+            letters,
+            {
+              y: "105%",
+              duration: 0.8,
+              stagger: 0.05,
+              ease: "power2.inOut",
+            },
+            "<"
+          )
+          .to(drink, {
+            x: -1000,
+            y: 50,
+            rotation: -30,
+            opacity: 0,
+            duration: 1,
+            ease: "power1.inOut",
+            delay: 1.5,
+          })
+          .to(
+            letters,
+            {
+              y: "-105%",
+              duration: 0.8,
+              stagger: 0.05,
+              ease: "power2.inOut",
+            },
+            "<"
+          );
+      });
+    </script>
+  </body>
+</html>
