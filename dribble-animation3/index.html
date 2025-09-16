@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cinematic Tech Showcase</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+      }
+
+      section {
+        width: 100%;
+        height: 100vh;
+        background-color: #000;
+        position: relative;
+        padding: 24px;
+        overflow: hidden;
+      }
+
+      .image-container {
+        display: grid;
+        place-content: end;
+      }
+
+      .image-container img {
+        width: 350px;
+        height: 350px;
+        object-fit: contain;
+        grid-column: 1;
+        grid-row: 1;
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      .text-container {
+        width: 100%;
+        margin-top: 24px;
+        position: absolute;
+        left: 24px;
+        bottom: 24px;
+        max-width: 80%;
+      }
+
+      .text-container span {
+        font-size: 76px;
+        margin-right: 10px;
+        cursor: pointer;
+        color: #fff;
+        transition: all 0.3s ease;
+      }
+
+      .text-container span.active {
+        color: orangered;
+      }
+
+      @media screen and (max-width: 768px) {
+        .text-container {
+          max-width: 90%;
+        }
+
+        .text-container span {
+          font-size: 64px;
+        }
+      }
+
+      @media screen and (max-width: 576px) {
+        .image-container img {
+          width: 300px;
+          height: 300px;
+        }
+
+        .text-container {
+          max-width: 90%;
+        }
+
+        .text-container span {
+          font-size: 44px;
+        }
+      }
+
+      img[data-name="mouse"] {
+        opacity: 1;
+        transform: scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="image-container">
+          <img data-name="mouse" src="mouse.png" alt="mouse" />
+          <img data-name="earbuds" src="earbuds.png" alt="earbuds" />
+          <img data-name="earphone" src="earphone.png" alt="earphone" />
+          <img data-name="smartwatch" src="smartwatch.png" alt="smartwatch" />
+          <img data-name="speaker" src="speaker.png" alt="speaker" />
+        </div>
+        <div class="text-container">
+          <span data-name="mouse" class="active">Mouse/</span>
+          <span data-name="earbuds">Earbuds/</span>
+          <span data-name="earphone">Earphone/</span>
+          <span data-name="smartwatch">Smartwatch/</span>
+          <span data-name="speaker">Speaker</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script>
+      const spans = document.querySelectorAll(".text-container span");
+      spans.forEach((span) => {
+        span.addEventListener("click", (e) => {
+          reset();
+
+          const attr = e.target.dataset.name;
+
+          const image = document.querySelector(`img[data-name=${attr}]`);
+          span.classList.add("active");
+          gsap.to(image, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+        });
+      });
+
+      function reset() {
+        spans.forEach((span) => {
+          span.classList.remove("active");
+        });
+
+        gsap.to(".image-container img", {
+          opacity: 0,
+          scale: 0.5,
+        });
+      }
+    </script>
+  </body>
+</html>
