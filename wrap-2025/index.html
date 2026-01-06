@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Year Wrapp (2025)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      @font-face {
+        font-family: Grifter;
+        src: url("./fonts/grifterbold.otf");
+      }
+
+      @font-face {
+        font-family: Gilroy;
+        src: url("./fonts/Gilroy-Medium.ttf");
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Gilroy;
+        font-style: normal;
+      }
+
+      .screen1 {
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+      }
+
+      /* .screen1 h1 {
+        font-family: Grifter;
+        color: #dc3545;
+        font-size: 140px;
+        line-height: 1;
+      } */
+
+      .screen1 h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .screen1 h1 span {
+        display: block;
+        font-family: Grifter;
+        color: #dc3545;
+        font-size: 140px;
+        line-height: 1;
+        max-height: 140px;
+        overflow: hidden;
+      }
+
+      .screen1 p {
+        color: #10528b;
+        font-size: 24px;
+        font-style: italic;
+        letter-spacing: -0.4%;
+      }
+
+      .screen2 {
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 998;
+        position: relative;
+      }
+
+      .screen2_strip {
+        width: 17.5%;
+        background-color: #10528b;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 998;
+      }
+
+      .screen2_strip.three {
+        width: 30%;
+      }
+
+      .screen2 p {
+        font-size: 30px;
+        color: #fff;
+        font-weight: 500;
+      }
+
+      .screen2_foreground {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .screen2_foreground p {
+        color: #10528b;
+        font-size: 24px;
+        font-style: italic;
+      }
+
+      .screen2_foreground h1 {
+        font-family: Grifter;
+        color: #10528b;
+        font-size: 140px;
+        line-height: 1;
+      }
+
+      .screen2_foreground span {
+        color: #dc3545;
+        font-size: 84px;
+        line-height: 1;
+        font-family: "Pinyon Script", cursive;
+        font-weight: 400;
+      }
+
+      .screen3 {
+        width: 100%;
+        height: 100vh;
+        background-image: linear-gradient(to right, #10528b, #083052);
+        position: fixed;
+        inset: 0;
+        z-index: 997;
+        overflow: hidden;
+      }
+
+      .screen3_first {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .screen3_first h1 {
+        font-size: 100px;
+        color: #fff;
+        line-height: 1;
+        text-align: center;
+        font-family: Grifter;
+        text-transform: uppercase;
+      }
+
+      .screen3_first p {
+        font-size: 22px;
+        color: #fff;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .screen3_second {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .screen3_second p {
+        font-size: 22px;
+        color: #10528b;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .screen3_second h1 {
+        font-size: 100px;
+        color: #10528b;
+        line-height: 1;
+        text-align: center;
+        font-family: Grifter;
+        text-transform: uppercase;
+      }
+
+      .screen3_third {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      .screen3_grid {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        grid-template-rows: repeat(auto-fit, minmax(80px, 1fr));
+        overflow: hidden;
+        position: absolute;
+        inset: 0;
+      }
+
+      .grid-cell {
+        width: 100%;
+        height: 100%;
+      }
+
+      .screen3_content {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        background-color: #10528b;
+        opacity: 0;
+      }
+
+      .screen3_content_top {
+        width: 100%;
+        height: 40%;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .screen3_content_top p {
+        font-size: 20px;
+        color: #10528b;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .screen3_content_top h1 {
+        font-size: 52px;
+        color: #10528b;
+        line-height: 1;
+        text-align: center;
+        font-family: Grifter;
+        text-transform: uppercase;
+      }
+
+      .screen3_content_middle {
+        width: 100%;
+        height: 60%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background-image: linear-gradient(to right, #10528b, #083052);
+      }
+
+      .my_data {
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        flex-direction: column;
+        padding: 48px;
+      }
+
+      .my_data h2 {
+        font-size: 64px;
+        font-family: Grifter;
+        color: #fff;
+        line-height: 1;
+      }
+
+      .my_data p {
+        font-size: 18px;
+        color: #fff;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .screen3_content_bottom {
+        position: absolute;
+        width: 100%;
+        height: 70px;
+        background-color: #fff;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        place-content: center;
+      }
+
+      .screen3_content_bottom p {
+        font-size: 16px;
+        color: #10528b;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .screen4 {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        inset: 0;
+        background-color: #fff;
+        z-index: 997;
+      }
+
+      .screen4_first {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        background-color: #fff;
+        padding: 96px 48px;
+        z-index: 8;
+      }
+
+      .screen4_first h1 {
+        font-size: 64px;
+        color: #10528b;
+        font-weight: 600;
+        line-height: 1;
+        text-transform: uppercase;
+        font-family: Grifter;
+      }
+
+      .screen4_grid {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .s4_card {
+        width: 170px;
+        height: 170px;
+        border-radius: 12px;
+        background-image: linear-gradient(to bottom right, #fff, #c3e3ff);
+        border: 1px solid #ececec;
+        overflow: hidden;
+      }
+
+      .s4_card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .screen4_bottom {
+        width: 100%;
+        margin-top: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+      }
+
+      .screen4_bottom span {
+        font-size: 64px;
+        color: #dc3545;
+        font-family: "Pinyon Script", cursive;
+        line-height: 1;
+      }
+
+      .screen4_second {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        background-color: #fff;
+        z-index: 9;
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 5%;
+      }
+
+      .screen4_second h1 {
+        width: fit-content;
+        font-size: 100px;
+        line-height: 1;
+        color: #dc3545;
+        margin: 0;
+        text-transform: uppercase;
+        font-family: "Grifter";
+        height: 0;
+        clip-path: inset(0);
+      }
+
+      .screen4_third {
+        width: 45%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #10528b;
+        display: flex;
+        flex-direction: column;
+        z-index: 11;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .mobile {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 36px;
+        color: #595959;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="screen1">
+        <!-- <h1>2025</h1> -->
+        <h1>
+          <span>2</span>
+          <span>0</span>
+          <span>2</span>
+          <span>
+            <span class="digit-5">5</span>
+            <span class="digit-6">6</span>
+          </span>
+        </h1>
+        <!-- <p>was not just another year</p> -->
+        <p>was not just a year of work.</p>
+      </div>
+      <div class="screen2">
+        <div class="screen2_strip"></div>
+        <div class="screen2_strip"></div>
+        <div class="screen2_strip three">
+          <p>It was a year of...</p>
+        </div>
+        <div class="screen2_strip"></div>
+        <div class="screen2_strip"></div>
+        <div class="screen2_foreground">
+          <p>it was a year of</p>
+          <h1>Building</h1>
+          <span id="text1">progress</span>
+        </div>
+      </div>
+      <div class="screen3">
+        <div class="screen3_first">
+          <h1>
+            i built <br />
+            Reliability
+          </h1>
+          <p>i didn’t just build projects.</p>
+        </div>
+        <div class="screen3_second">
+          <p>in 2025, i expanded my</p>
+          <h1>Ecosystem</h1>
+        </div>
+        <div class="screen3_third">
+          <div class="screen3_grid"></div>
+          <div class="screen3_content">
+            <div class="screen3_content_top">
+              <p>2025 quietly turned into a year of</p>
+              <h1>Showing Up Every Day</h1>
+            </div>
+
+            <div class="screen3_content_middle">
+              <div class="grid-cell my_data">
+                <h2>7000+</h2>
+                <p>hours spent staring at problems</p>
+              </div>
+
+              <div class="grid-cell my_data">
+                <h2>80+</h2>
+                <p>cups that kept me awake</p>
+              </div>
+
+              <div class="grid-cell my_data">
+                <h2>99%</h2>
+                <p>things that eventually worked</p>
+              </div>
+            </div>
+
+            <div class="screen3_content_bottom">
+              <p>
+                Every hour sharpened my thinking — turning learning into
+                dependable solutions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen4">
+        <div class="screen4_first">
+          <h1>Projects i built</h1>
+
+          <div class="screen4_grid">
+            <div class="s4_card">
+              <img src="./images/project (1).png" alt="" />
+            </div>
+            <div class="s4_card">
+              <img src="./images/project (2).png" alt="" />
+            </div>
+            <div class="s4_card">
+              <img src="./images/project (3).png" alt="" />
+            </div>
+            <div class="s4_card">
+              <img src="./images/project (4).png" alt="" />
+            </div>
+          </div>
+
+          <div class="screen4_bottom">
+            <span>...</span>
+            <span>s</span>
+            <span>i</span>
+            <span>m</span>
+            <span>p</span>
+            <span>l</span>
+            <span>e</span>
+            <div style="margin: 0 5px"></div>
+            <span>P</span>
+            <span>o</span>
+            <span>w</span>
+            <span>e</span>
+            <span>r</span>
+            <span>f</span>
+            <span>u</span>
+            <span>l</span>
+            <span>.</span>
+            <div style="margin: 0 5px"></div>
+            <span>R</span>
+            <span>e</span>
+            <span>l</span>
+            <span>i</span>
+            <span>a</span>
+            <span>b</span>
+            <span>l</span>
+            <span>e</span>
+            <span>.</span>
+          </div>
+        </div>
+
+        <div class="screen4_second">
+          <h1>Thinking</h1>
+          <h1>Designing</h1>
+          <h1>Building</h1>
+          <h1>Shipping</h1>
+        </div>
+
+        <div class="screen4_third"></div>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.1.0/dist/confetti.min.js"></script>
+
+    <script>
+      gsap.registerPlugin(MotionPathPlugin);
+
+      const tl = gsap.timeline();
+
+      const text1 = document.querySelector("#text1");
+      const screen3_grid = document.querySelector(".screen3_grid");
+
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      document.querySelectorAll(".screen4_second h1").forEach((h1) => {
+        const h1Width = h1.getBoundingClientRect().width;
+        const centerX = screenWidth / 2 - h1Width / 2 - screenWidth * 0.05;
+        gsap.set(h1, { x: centerX });
+      });
+
+      function createGrid() {
+        screen3_grid.innerHTML = "";
+
+        const { width, height } = screen3_grid.getBoundingClientRect();
+
+        const cols = Math.floor(width / 80);
+        const rows = Math.floor(height / 80);
+        const totalCells = cols * rows;
+
+        for (let i = 0; i < totalCells; i++) {
+          const cell = document.createElement("div");
+          cell.className = "grid-cell";
+          screen3_grid.appendChild(cell);
+        }
+      }
+
+      createGrid();
+
+      const rand = (min, max) => Math.random() * (max - min) + min;
+
+      const position = [
+        // 1️⃣ Top Left
+        {
+          x: -screenWidth * rand(0.3, 0.7),
+          y: -screenHeight * rand(0.3, 0.7),
+        },
+
+        // 2️⃣ Top Right
+        {
+          x: screenWidth * rand(0.3, 0.7),
+          y: -screenHeight * rand(0.3, 0.7),
+        },
+
+        // 3️⃣ Bottom Left
+        {
+          x: -screenWidth * rand(0.3, 0.7),
+          y: screenHeight * rand(0.3, 0.7),
+        },
+
+        // 4️⃣ Bottom Right
+        {
+          x: screenWidth * rand(0.3, 0.7),
+          y: screenHeight * rand(0.3, 0.7),
+        },
+      ];
+
+      tl.to(".screen1", {
+        y: "-100%",
+        duration: 1,
+        delay: 1.5,
+        ease: "power1.inOut",
+        onComplete: () => {
+          const p = document.querySelector(".screen1 p");
+          p.textContent = "together";
+          gsap.to(p, {
+            fontFamily: '"Pinyon Script", cursive',
+            lineHeight: 1,
+            fontSize: "84px",
+          });
+        },
+      })
+        .to(".screen2_strip", {
+          y: "-100%",
+          duration: 1.2,
+          ease: "power1.inOut",
+          stagger: 0.1,
+          delay: 0.7,
+          onComplete: () => {
+            text1.textContent = "trust";
+            gsap
+              .timeline()
+              .to({}, { duration: 0.5 })
+              .call(() => {
+                text1.textContent = "growth";
+              })
+              .to({}, { duration: 0.5 })
+              .call(() => {
+                text1.textContent = "success";
+              })
+              .to({}, { duration: 0.5 })
+              .call(() => {
+                text1.textContent = "future";
+              });
+          },
+        })
+        .to(".screen2", {
+          x: "-100%",
+          duration: 1,
+          ease: "power1.inOut",
+          delay: 2,
+        })
+        .from(".screen3_first p", {
+          y: -100,
+          duration: 0.7,
+          ease: "power1.inOut",
+        })
+        .from(".screen3_first h1", {
+          opacity: 0,
+          duration: 0.7,
+          ease: "power1.inOut",
+        })
+        .to(".screen3", {
+          scale: 0.5,
+          borderRadius: 16,
+          duration: 1,
+          ease: "power1.inOut",
+        })
+        .to(".screen3_first", {
+          x: "100%",
+          duration: 0.7,
+          ease: "power1.inOut",
+        })
+        .from(
+          ".screen3_second",
+          {
+            x: "-100%",
+            opacity: 0,
+            duration: 0.7,
+            ease: "power1.inOut",
+          },
+          "-=0.5"
+        )
+        .to(".screen3", {
+          scale: 1,
+          borderRadius: 0,
+          duration: 1,
+          delay: 0.5,
+          ease: "power1.inOut",
+        })
+
+        .from(".screen3_third", {
+          opacity: 0,
+        })
+        .to(".grid-cell", {
+          backgroundColor: "#10528b",
+          duration: 0.1,
+          stagger: {
+            each: 0.01,
+            from: "random",
+          },
+          ease: "power2.out",
+        })
+        .to(".screen3_content", {
+          opacity: 1,
+          duration: 0.7,
+          ease: "power2.inOut",
+        })
+        .from(".screen3_content_bottom", {
+          y: "100%",
+          duration: 0.7,
+          delay: 0.5,
+          ease: "power1.inOut",
+        })
+        .from(".screen4", {
+          y: "-100%",
+          duration: 1,
+          ease: "power1.inOut",
+        })
+        .from(".s4_card", {
+          opacity: 0,
+          y: 100,
+          x: 50,
+          rotateX: 10,
+          rotateY: 10,
+          scale: 0.8,
+          duration: 0.5,
+          stagger: 0.5,
+
+          ease: "power1.inOut",
+        })
+        .from(".screen4_bottom span", {
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power1.inOut",
+        })
+        .to(".screen4_second", {
+          opacity: 1,
+          duration: 0.7,
+          ease: "power1.inOut",
+        })
+        .to(".screen4_second h1", {
+          height: "auto",
+          clipPath: "inset(100)",
+          duration: 1,
+          stagger: 0.6,
+          ease: "expo.inOut",
+        })
+        .to(".screen4_second h1", {
+          x: 0,
+          duration: 1,
+          ease: "power4.inOut",
+          // ease: "expo.inOut",
+        })
+        .from(".screen4_third", {
+          x: "100%",
+          duration: 1,
+          ease: "power4.inOut",
+        })
+
+        .to(".screen4_third", {
+          width: "100%",
+          duration: 1,
+          delay: 0.5,
+          ease: "power1.inOut",
+        })
+
+        .to(".screen1", {
+          y: 0,
+          duration: 1,
+          delay: 0.5,
+          ease: "power1.inOut",
+        })
+        .to([".digit-5", ".digit-6"], {
+          y: "-100%",
+          duration: 1,
+          ease: "power1.inOut",
+          delay: 0.5,
+          onComplete: () => {
+            setTimeout(runConfetti, 300);
+          },
+        });
+
+      function runConfetti() {
+        let positionList = [
+          { x: window.innerWidth * 0.5, y: window.innerHeight * 0.6 },
+          { x: window.innerWidth * 0.25, y: window.innerHeight * 0.4 },
+          { x: window.innerWidth * 0.75, y: window.innerHeight * 0.3 },
+        ];
+        for (let i = 0; i < positionList.length; i++) {
+          setTimeout(() => confetti({ position: positionList[i] }), i * 250);
+        }
+      }
+
+      function checkScreenSize() {
+        if (window.innerWidth < 992) {
+          document.querySelector("main").innerHTML =
+            '<div class="mobile">Please open on a larger screen</div>';
+        }
+      }
+      // checkScreenSize();
+
+      window.addEventListener("resize", () => {
+        createGrid();
+        // checkScreenSize();
+      });
+    </script>
+  </body>
+</html>
