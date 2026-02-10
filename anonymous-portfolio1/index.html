@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anonymous Portfolio1</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        background-color: #f8f6f3;
+      }
+
+      .bebas-neue-regular {
+      }
+
+      *::-webkit-scrollbar {
+        display: none;
+      }
+
+      main {
+        width: 100%;
+        /* padding: 24px; */
+      }
+
+      .lines-container {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        overflow: hidden;
+      }
+
+      /* horizontal line */
+      .vertical-line {
+        width: 100%;
+        height: 1px;
+        background-color: #dadada;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+
+      .vertical-line::after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: #3e3e3e;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0px;
+      }
+
+      .vertical-line::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: #3e3e3e;
+
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0px;
+      }
+
+      /* vertical line */
+      .horizontal-line {
+        width: 1px;
+        height: 100%;
+        background-color: #dadada;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+
+      .horizontal-line::after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: #3e3e3e;
+
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .horizontal-line::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: #3e3e3e;
+
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .intersection-box {
+        width: 10px;
+        height: 10px;
+        background-color: #3e3e3e;
+        z-index: 9;
+        position: absolute;
+        left: -5px;
+        top: -5px;
+      }
+
+      .flex-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .flex-box {
+        width: 100px;
+        height: 100%;
+        /* border-left: 1px dashed #3e3e3e; */
+        /* border-right: 1px dashed #3e3e3e; */
+        background:
+          repeating-linear-gradient(
+              to bottom,
+              #d6d2cb 0 5px,
+              transparent 5px 10px
+            )
+            left,
+          repeating-linear-gradient(
+              to bottom,
+              #d6d2cb 0 5px,
+              transparent 5px 10px
+            )
+            right;
+
+        background-size:
+          0.8px 100%,
+          1px 100%;
+        background-position:
+          left top,
+          right top;
+        background-repeat: no-repeat;
+      }
+
+      section {
+        width: 100%;
+        height: 100vh;
+        padding: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-end;
+        font-size: 64px;
+      }
+
+      section span,
+      section h1 {
+        z-index: 1;
+        /* pointer-events: none; */
+      }
+
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+      }
+
+      .time-card {
+        text-align: center;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .time-card h2 {
+        font-size: 16px;
+      }
+
+      .time-card p {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="lines-container">
+        <div class="horizontal-line">
+          <div class="intersection-box"></div>
+        </div>
+        <div class="vertical-line"></div>
+
+        <div class="flex-container">
+          <div class="flex-box"></div>
+          <div class="flex-box"></div>
+          <div class="flex-box"></div>
+          <div class="flex-box"></div>
+        </div>
+      </div>
+
+      <section>
+        <span>Hi I'am</span>
+        <h1 id="scramble">Mohd Amaan</h1>
+        <div class="time-grid">
+          <div class="time-card">
+            <h2>New York</h2>
+            <p id="newYork"></p>
+          </div>
+
+          <div class="time-card">
+            <h2>India</h2>
+            <p id="india"></p>
+          </div>
+
+          <div class="time-card">
+            <h2>London</h2>
+            <p id="london"></p>
+          </div>
+
+          <div class="time-card">
+            <h2>Tokyo</h2>
+            <p id="tokyo"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      if (window.innerWidth < 768) {
+        gsap.set("main", {
+          display: "none",
+        });
+      }
+
+      /* -------------------- GSAP -------------------- */
+      const box = document.querySelector(".lines-container");
+      const vLine = document.querySelector(".vertical-line");
+      const hLine = document.querySelector(".horizontal-line");
+      const iBox = document.querySelector(".intersection-box");
+
+      // GSAP smooth setters (magic)
+      const moveX = gsap.quickTo(hLine, "left", {
+        duration: 0.6,
+        ease: "power3.out",
+      });
+
+      const moveY = gsap.quickTo(vLine, "top", {
+        duration: 0.6,
+        ease: "power3.out",
+      });
+
+      //   const moveIX = gsap.quickTo(iBox, "x", {
+      //     duration: 0.5,
+      //     ease: "power3.out",
+      //   });
+
+      const moveIY = gsap.quickTo(iBox, "y", {
+        duration: 0.6,
+        ease: "power3.out",
+      });
+
+      box.addEventListener("mousemove", (e) => {
+        const rect = box.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        moveX(x);
+        moveY(y);
+
+        moveIY(y);
+      });
+
+      (function scrambleHeroText() {
+        const el = document.getElementById("scramble");
+        const originalText = el.innerText;
+        const chars =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+
+        let interval = null;
+
+        el.addEventListener("mouseenter", () => {
+          let iteration = 0;
+
+          clearInterval(interval);
+
+          interval = setInterval(() => {
+            el.innerText = originalText
+              .split("")
+              .map((char, index) => {
+                if (char === " ") return " ";
+                if (index < iteration) return originalText[index];
+                return chars[Math.floor(Math.random() * chars.length)];
+              })
+              .join("");
+
+            iteration += 0.3;
+
+            if (iteration >= originalText.length) {
+              clearInterval(interval);
+              el.innerText = originalText;
+            }
+          }, 40);
+        });
+
+        el.addEventListener("mouseleave", () => {
+          clearInterval(interval);
+          el.innerText = originalText;
+        });
+      })();
+
+      function updateTime() {
+        const options = {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        };
+
+        document.getElementById("newYork").innerText =
+          new Date().toLocaleTimeString("en-US", {
+            ...options,
+            timeZone: "America/New_York",
+          });
+
+        document.getElementById("india").innerText =
+          new Date().toLocaleTimeString("en-IN", {
+            ...options,
+            timeZone: "Asia/Kolkata",
+          });
+
+        document.getElementById("london").innerText =
+          new Date().toLocaleTimeString("en-GB", {
+            ...options,
+            timeZone: "Europe/London",
+          });
+
+        document.getElementById("tokyo").innerText =
+          new Date().toLocaleTimeString("ja-JP", {
+            ...options,
+            timeZone: "Asia/Tokyo",
+          });
+      }
+
+      setInterval(updateTime, 1000);
+      updateTime();
+    </script>
+  </body>
+</html>
